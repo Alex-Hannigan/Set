@@ -18,64 +18,24 @@ struct Card: Hashable {
         case color1
         case color2
         case color3
-        
-        static func element(at index: Int) -> Color? {
-            let elements = [Color.color1, Color.color2, Color.color3]
-            if index >= 0 && index < elements.count {
-                return elements[index]
-            }
-            else {
-                return nil
-            }
-        }
     }
     
     enum Shape {
         case shape1
         case shape2
         case shape3
-        
-        static func element(at index: Int) -> Shape? {
-            let elements = [Shape.shape1, Shape.shape2, Shape.shape3]
-            if index >= 0 && index < elements.count {
-                return elements[index]
-            }
-            else {
-                return nil
-            }
-        }
     }
     
     enum NumberOfShapes {
         case one
         case two
         case three
-        
-        static func element(at index: Int) -> NumberOfShapes? {
-            let elements = [NumberOfShapes.one, NumberOfShapes.two, NumberOfShapes.three]
-            if index >= 0 && index < elements.count {
-                return elements[index]
-            }
-            else {
-                return nil
-            }
-        }
     }
     
     enum FillStyle {
         case filled
         case stroked
         case striped
-        
-        static func element(at index: Int) -> FillStyle? {
-            let elements = [FillStyle.filled, FillStyle.stroked, FillStyle.striped]
-            if index >= 0 && index < elements.count {
-                return elements[index]
-            }
-            else {
-                return nil
-            }
-        }
     }
     
     var color: Color
