@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViewFromModel()
@@ -17,62 +17,91 @@ class ViewController: UIViewController {
     
     @IBOutlet var cardButtons: [RoundedButton]!
     
-    var numberOfCards: Int {
+    var maxNumberOfCards: Int {
         return cardButtons.count
     }
     
+    let startNumberOfCards = 12
+    private var currentNumberOfCards = 12
+    var numberOfSelectedCards: Int {
+        return game.selectedCards.count
+    }
+    
     @IBAction func touchCard(_ sender: RoundedButton) {
-        print("A card was touched")
+        if let cardIndex = cardButtons.index(of: sender) {
+            game.selectCard(at: cardIndex)
+            print(numberOfSelectedCards)
+            updateViewFromModel()
+        }
     }
     
     @IBAction func deal3MoreCards(_ sender: RoundedButton) {
-        print("Deal 3 more cards button pressed")
-        print(game.deck)
-    }
-    
-    @IBAction func newGame(_ sender: RoundedButton) {
-        print("New Game button pressed")
-        game = SetGame(numberOfCards: numberOfCards)
+        game.deal3MoreCards()
         updateViewFromModel()
     }
     
-    lazy private var game = SetGame(numberOfCards: numberOfCards)
+    @IBAction func newGame(_ sender: RoundedButton) {
+        game = SetGame(numberOfCards: startNumberOfCards)
+        updateViewFromModel()
+    }
+    
+    lazy private var game = SetGame(numberOfCards: startNumberOfCards)
     
     private func updateViewFromModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]
-            let card = game.dealtCards[index]
-            let cardFaceString = String(repeating: shapeChoices[card.shape] ?? "?", count: numberOfShapesChoices[card.numberOfShapes] ?? 1)
-            let strokeWidth = fillStyleChoices[card.fillStyle]
-            var foregroundColor: UIColor {
-                return colorChoices[card.color] ?? UIColor.black
-            }
-            var strokeColor: UIColor {
-                return foregroundColor
-            }
-            var foregroundAlpha: CGFloat {
-                switch card.fillStyle {
-                case .striped:
-                    return 0.25
-                default:
-                    return 1.0
+            
+            if let card = game.dealtCards.indices.contains(index) ? game.dealtCards[index] : nil {
+                let cardFaceString = String(repeating: shapeChoices[card.shape] ?? " ", count: numberOfShapesChoices[card.numberOfShapes] ?? 1)
+                let strokeWidth = fillStyleChoices[card.fillStyle]
+                var foregroundColor: UIColor {
+                    return colorChoices[card.color] ?? UIColor.black
+                }
+                var strokeColor: UIColor {
+                    return foregroundColor
+                }
+                var foregroundAlpha: CGFloat {
+                    switch card.fillStyle {
+                    case .striped:
+                        return 0.25
+                    default:
+                        return 1.0
+                    }
+                }
+                var strokeAlpha: CGFloat {
+                    switch card.fillStyle {
+                    case .striped:
+                        return 0.0
+                    default :
+                        return 1.0
+                    }
+                }
+                let attributes: [NSAttributedStringKey: Any] = [
+                    .strokeWidth : strokeWidth ?? 5.0,
+                    .foregroundColor : foregroundColor.withAlphaComponent(foregroundAlpha),
+                    .strokeColor : strokeColor.withAlphaComponent(strokeAlpha)
+                ]
+                let attributedString = NSAttributedString(string: cardFaceString, attributes: attributes)
+                button.setAttributedTitle(attributedString, for: UIControlState.normal)
+                button.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+                
+                if game.selectedCards[index] != nil {
+                    button.layer.borderWidth = 3.0
+                    button.layer.borderColor = UIColor.blue.cgColor
+                }
+                else {
+                    button.layer.borderWidth = 0.0
                 }
             }
-            var strokeAlpha: CGFloat {
-                switch card.fillStyle {
-                case .striped:
-                    return 0.0
-                default :
-                    return 1.0
-                }
+            else {
+                let attributes: [NSAttributedStringKey: Any] = [
+                    .strokeWidth : 5.0,
+                ]
+                button.setTitle(" ", for: UIControlState.normal)
+                button.setAttributedTitle(NSAttributedString(string: " ", attributes: attributes), for: UIControlState.normal)
+                button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+                button.layer.borderWidth = 0.0
             }
-            let attributes: [NSAttributedStringKey: Any] = [
-                .strokeWidth : strokeWidth ?? 5.0,
-                .foregroundColor : foregroundColor.withAlphaComponent(foregroundAlpha),
-                .strokeColor : strokeColor.withAlphaComponent(strokeAlpha)
-            ]
-            let attributedString = NSAttributedString(string: cardFaceString, attributes: attributes)
-            button.setAttributedTitle(attributedString, for: UIControlState.normal)
         }
     }
     

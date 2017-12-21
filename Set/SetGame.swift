@@ -18,6 +18,8 @@ struct SetGame {
     
     private (set) var dealtCards = [Card]()
     
+    var selectedCards = [Int: Card]()
+    
     init(numberOfCards: Int) {
         
         for cardColorIndex in 0...cardColors.count - 1 {
@@ -36,6 +38,21 @@ struct SetGame {
         
         for _ in 0...numberOfCards - 1 {
             dealtCards.append(deck.remove(at: (deck.count - 1).arc4random))
+        }
+    }
+    
+    mutating func deal3MoreCards() {
+        for _ in 0...2 {
+            dealtCards.append(deck.remove(at: (deck.count - 1).arc4random))
+        }
+    }
+    
+    mutating func selectCard(at index: Int) {
+        if selectedCards[index] == nil {
+            selectedCards[index] = dealtCards[index]
+        }
+        else {
+            selectedCards.removeValue(forKey: index)
         }
     }
 }
