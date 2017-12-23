@@ -22,16 +22,26 @@ class ViewController: UIViewController {
     }
     
     let startNumberOfCards = 12
+    
     private var currentNumberOfCards = 12
+    
     var numberOfSelectedCards: Int {
         return game.selectedCards.count
     }
     
     @IBAction func touchCard(_ sender: RoundedButton) {
-        if let cardIndex = cardButtons.index(of: sender) {
-            game.selectCard(at: cardIndex)
-            print(numberOfSelectedCards)
-            updateViewFromModel()
+            if let cardIndex = cardButtons.index(of: sender) {
+                if game.dealtCards.indices.contains(cardIndex) {
+                if numberOfSelectedCards >= 3 {
+                    if game.cardsAreSet() { print("SET!!!!!") }
+                    game.selectedCards = [Int : Card]()
+                    updateViewFromModel()
+                }
+                else {
+                game.selectCard(at: cardIndex)
+                updateViewFromModel()
+                    }
+            }
         }
     }
     

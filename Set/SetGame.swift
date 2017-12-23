@@ -43,7 +43,9 @@ struct SetGame {
     
     mutating func deal3MoreCards() {
         for _ in 0...2 {
-            dealtCards.append(deck.remove(at: (deck.count - 1).arc4random))
+            if deck.count > 0 {
+                dealtCards.append(deck.remove(at: (deck.count - 1).arc4random))
+            }
         }
     }
     
@@ -53,6 +55,44 @@ struct SetGame {
         }
         else {
             selectedCards.removeValue(forKey: index)
+        }
+    }
+    
+    mutating func cardsAreSet() -> Bool {
+        let cards = Array(selectedCards.values)
+        let card1 = cards[0], card2 = cards[1], card3 = cards[2]
+        if ((card1.color == card2.color && card2.color == card3.color) || (card1.color != card2.color && card2.color != card3.color)) &&
+            ((card1.fillStyle == card2.fillStyle && card2.fillStyle == card3.fillStyle) || (card1.fillStyle != card2.fillStyle && card2.fillStyle != card3.fillStyle)) &&
+                ((card1.numberOfShapes == card2.numberOfShapes && card2.numberOfShapes == card3.numberOfShapes) || (card1.numberOfShapes != card2.numberOfShapes && card2.numberOfShapes != card3.numberOfShapes)) &&
+                    ((card1.shape == card2.shape && card2.shape == card3.shape) || (card1.shape != card2.shape && card2.shape != card3.shape)) {
+                        let selectedCardsIndexArray = Array(selectedCards.keys)
+            var indexesOfCardsToRemove = [Int]()
+            if deck.count > 0 {
+                dealtCards[selectedCardsIndexArray[0]] = deck.remove(at: (deck.count - 1).arc4random)
+            }
+            else {
+                indexesOfCardsToRemove.append(selectedCardsIndexArray[0])
+            }
+            if deck.count > 0 {
+                dealtCards[selectedCardsIndexArray[1]] = deck.remove(at: (deck.count - 1).arc4random)
+            }
+            else {
+                indexesOfCardsToRemove.append(selectedCardsIndexArray[1])
+            }
+            if deck.count > 0 {
+                dealtCards[selectedCardsIndexArray[2]] = deck.remove(at: (deck.count - 1).arc4random)
+            }
+            else {
+                indexesOfCardsToRemove.append(selectedCardsIndexArray[2])
+            }
+            dealtCards = dealtCards
+                .enumerated()
+                .filter { !indexesOfCardsToRemove.contains($0.offset) }
+                .map { $0.element }
+                        return true
+                    }
+        else {
+            return false
         }
     }
 }
