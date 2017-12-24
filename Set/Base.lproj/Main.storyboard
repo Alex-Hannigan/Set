@@ -524,6 +524,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="scoreLabel" destination="EvM-b9-7Jm" id="tK6-ve-pmw"/>
                         <outletCollection property="cardButtons" destination="HYV-xb-6L1" collectionClass="NSMutableArray" id="vfX-Ks-QQb"/>
                         <outletCollection property="cardButtons" destination="3CC-gl-LEj" collectionClass="NSMutableArray" id="fyP-L0-rXa"/>
                         <outletCollection property="cardButtons" destination="QgS-HW-Ve3" collectionClass="NSMutableArray" id="SDh-82-HiD"/>

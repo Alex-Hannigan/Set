@@ -15,33 +15,30 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
+    @IBOutlet weak var scoreLabel: UILabel!
+    
+    // All of the dealt 'cards' (represented as UIButton objects)
     @IBOutlet var cardButtons: [RoundedButton]!
     
     var maxNumberOfCards: Int {
         return cardButtons.count
     }
     
+    // The number of cards that are dealt at the start of a new game
     let startNumberOfCards = 12
     
+    // The number of cards that are currently dealt
     private var currentNumberOfCards = 12
     
     var numberOfSelectedCards: Int {
         return game.selectedCards.count
     }
     
+    // When a card is touched, call the model's "selectCard(at:)" method and update the view from the model
     @IBAction func touchCard(_ sender: RoundedButton) {
-            if let cardIndex = cardButtons.index(of: sender) {
-                if game.dealtCards.indices.contains(cardIndex) {
-                if numberOfSelectedCards >= 3 {
-                    if game.cardsAreSet() { print("SET!!!!!") }
-                    game.selectedCards = [Int : Card]()
-                    updateViewFromModel()
-                }
-                else {
-                game.selectCard(at: cardIndex)
-                updateViewFromModel()
-                    }
-            }
+        if let index = cardButtons.index(of: sender) {
+            game.selectCard(at: index)
+            updateViewFromModel()
         }
     }
     
@@ -55,9 +52,12 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
+    // Set up a connection to the model
     lazy private var game = SetGame(numberOfCards: startNumberOfCards)
     
+    // Sync up the view with the model
     private func updateViewFromModel() {
+        // Loop through each 'card' (button) in the view, and update it to match the corresponding Card in the model
         for index in cardButtons.indices {
             let button = cardButtons[index]
             
@@ -113,6 +113,7 @@ class ViewController: UIViewController {
                 button.layer.borderWidth = 0.0
             }
         }
+        scoreLabel.text = "Score: \(game.score)"
     }
     
     private var shapeChoices = [
