@@ -57,6 +57,7 @@ class ViewController: UIViewController {
     
     // Sync up the view with the model
     private func updateViewFromModel() {
+        if !game.gameOver {
         // Loop through each 'card' (button) in the view, and update it to match the corresponding Card in the model
         for index in cardButtons.indices {
             let button = cardButtons[index]
@@ -114,6 +115,10 @@ class ViewController: UIViewController {
             }
         }
         scoreLabel.text = "Score: \(game.score)"
+        }
+        else {
+            scoreLabel.text = "YOU WIN"
+        }
     }
     
     private var shapeChoices = [

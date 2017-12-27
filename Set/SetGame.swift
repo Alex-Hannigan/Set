@@ -26,6 +26,8 @@ struct SetGame {
     
     private (set) var score = 0
     
+    private (set) var gameOver = false
+    
     // Initializer which takes one parameter - the number of cards to be dealt at the start of the game
     // This populates the deck with 81 unique cards - one for each possible combination of features
     // It then 'deals' a specified number of them, removing them from the deck
@@ -64,6 +66,9 @@ struct SetGame {
             if cardsAreSet() {
                 selectedCardIndex = dealtCards.index(of: selectedCard) ?? selectedCardIndex
                 score += 10
+                if dealtCards.isEmpty {
+                    gameOver = true
+                }
             }
             else {
                 score -= 10
@@ -110,10 +115,20 @@ struct SetGame {
                 indexesOfCardsToRemove.append(selectedCardsIndexArray[2])
             }
             // Remove matched cards from dealt cards
+            /*
             dealtCards = dealtCards
                 .enumerated()
                 .filter { !indexesOfCardsToRemove.contains($0.offset) }
                 .map { $0.element }
+            */
+            for _ in indexesOfCardsToRemove {
+                if let max = indexesOfCardsToRemove.max() {
+                    dealtCards.remove(at: max)
+                    if let index = indexesOfCardsToRemove.index(of: max) {
+                        indexesOfCardsToRemove.remove(at: index)
+                    }
+                }
+            }
             return true
         }
         else {
