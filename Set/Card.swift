@@ -18,24 +18,32 @@ struct Card: Hashable {
         case color1
         case color2
         case color3
+        
+        static var all = [Color.color1, .color2, .color3]
     }
     
     enum Shape {
         case shape1
         case shape2
         case shape3
+        
+        static var all = [Shape.shape1, .shape2, .shape3]
     }
     
     enum NumberOfShapes {
         case one
         case two
         case three
+        
+        static var all = [NumberOfShapes.one, .two, .three]
     }
     
     enum FillStyle {
         case filled
         case stroked
         case striped
+        
+        static var all = [FillStyle.filled, .stroked, .striped]
     }
     
     var color: Color
