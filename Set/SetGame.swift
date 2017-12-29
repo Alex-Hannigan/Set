@@ -114,13 +114,7 @@ struct SetGame {
             else {
                 indexesOfCardsToRemove.append(selectedCardsIndexArray[2])
             }
-            // Remove matched cards from dealt cards
-            /*
-            dealtCards = dealtCards
-                .enumerated()
-                .filter { !indexesOfCardsToRemove.contains($0.offset) }
-                .map { $0.element }
-            */
+
             for _ in indexesOfCardsToRemove {
                 if let max = indexesOfCardsToRemove.max() {
                     dealtCards.remove(at: max)
