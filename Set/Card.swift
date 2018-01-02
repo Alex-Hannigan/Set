@@ -8,29 +8,37 @@
 
 import Foundation
 
-struct Card: Hashable {
+struct Card: Hashable, CustomStringConvertible {
+    var description: String {
+        return "\(color) \(shape) \(numberOfShapes) \(fillStyle)"
+    }
+    
     var hashValue: Int { return identifier }
     static func == (lhs: Card, rhs: Card) -> Bool {
         return lhs.identifier == rhs.identifier
     }
     
-    enum Color {
-        case color1
-        case color2
-        case color3
+    enum Color: String, CustomStringConvertible {
+        var description: String { return rawValue }
+        
+        case color1 = "red"
+        case color2 = "blue"
+        case color3 = "yellow"
         
         static var all = [Color.color1, .color2, .color3]
     }
     
-    enum Shape {
-        case shape1
-        case shape2
-        case shape3
+    enum Shape: String, CustomStringConvertible {
+        var description: String { return rawValue }
+        
+        case shape1 = "diamond"
+        case shape2 = "oval"
+        case shape3 = "squiggle"
         
         static var all = [Shape.shape1, .shape2, .shape3]
     }
     
-    enum NumberOfShapes {
+    enum NumberOfShapes: String {
         case one
         case two
         case three
@@ -38,10 +46,12 @@ struct Card: Hashable {
         static var all = [NumberOfShapes.one, .two, .three]
     }
     
-    enum FillStyle {
-        case filled
-        case stroked
-        case striped
+    enum FillStyle: String, CustomStringConvertible {
+        var description: String { return rawValue }
+        
+        case filled = "solid"
+        case stroked = "open"
+        case striped = "striped"
         
         static var all = [FillStyle.filled, .stroked, .striped]
     }

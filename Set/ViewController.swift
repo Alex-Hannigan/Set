@@ -119,6 +119,7 @@ class ViewController: UIViewController {
         else {
             scoreLabel.text = "YOU WIN"
         }
+        print(game.deck)
     }
     
     private var shapeChoices = [
