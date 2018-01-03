@@ -12,12 +12,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateViewFromModel()
     }
     
     @IBOutlet weak var scoreLabel: UILabel!
 
-    @IBOutlet weak var tableSpaceForCards: UIView!
+    @IBOutlet weak var tableSpaceForCards: UIView! { didSet { updateViewFromModel() } }
     
     var maxNumberOfCards: Int {
         return tableSpaceForCards.subviews.count
@@ -63,6 +62,8 @@ class ViewController: UIViewController {
             for index in 0...grid.cellCount - 1 {
                 if let cell = grid[index] {
                     let cardView = SetCardView(frame: cell)
+                    cardView.isOpaque = false
+                    cardView.frame = cardView.frame.insetBy(dx: cardView.frame.width * 0.05, dy: cardView.frame.width * 0.05)
                     if let card = game.dealtCards.indices.contains(index) ? game.dealtCards[index] : nil {
                         switch card.color {
                             case .color1: cardView.color = .red

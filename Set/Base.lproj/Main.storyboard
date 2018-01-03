@@ -44,7 +44,7 @@
                                     <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6CZ-nu-p4b"/>
                                 </connections>
                             </button>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9F-VE-JLq">
+                            <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="e9F-VE-JLq">
                                 <rect key="frame" x="0.0" y="138" width="375" height="546"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
