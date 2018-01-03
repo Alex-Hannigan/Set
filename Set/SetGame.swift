@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GameplayKit
 
 struct SetGame {
     
@@ -48,6 +49,11 @@ struct SetGame {
                 dealtCards.append(deck.remove(at: (deck.count - 1).arc4random))
             }
         }
+    }
+    
+    mutating func shuffleDealtCards() {
+        dealtCards = dealtCards.shuffled()
+        selectedCards = [:]
     }
     
     mutating func selectCard(at index: Int) {
@@ -119,5 +125,11 @@ struct SetGame {
         else {
             return false
         }
+    }
+}
+
+extension Array {
+    func shuffled() -> [Element] {
+        return (self as NSArray).shuffled() as! [Element]
     }
 }

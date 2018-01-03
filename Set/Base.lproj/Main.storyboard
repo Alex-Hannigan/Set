@@ -47,6 +47,10 @@
                             <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="e9F-VE-JLq">
                                 <rect key="frame" x="0.0" y="138" width="375" height="546"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="zb6-HX-rwH" appends="YES" id="RaY-gJ-lw9"/>
+                                </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dV-Nh-9mV" customClass="RoundedButton" customModule="Set" customModuleProvider="target">
                                 <rect key="frame" x="233" y="700" width="125" height="50"/>
@@ -99,6 +103,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <rotationGestureRecognizer id="zb6-HX-rwH">
+                    <connections>
+                        <action selector="shuffleDealtCards:" destination="BYZ-38-t0r" id="hea-EK-dFt"/>
+                    </connections>
+                </rotationGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-79.200000000000003" y="133.74384236453201"/>
         </scene>

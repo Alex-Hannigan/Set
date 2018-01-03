@@ -48,6 +48,12 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
+    @IBAction func shuffleDealtCards(_ sender: UIRotationGestureRecognizer) {
+        game.shuffleDealtCards()
+        updateViewFromModel()
+    }
+    
+    
     // Set up a connection to the model
     lazy private var game = SetGame(numberOfCards: startNumberOfCards)
     
