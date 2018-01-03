@@ -14,9 +14,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewDidLayoutSubviews() {
+        updateViewFromModel()
+    }
+    
     @IBOutlet weak var scoreLabel: UILabel!
 
-    @IBOutlet weak var tableSpaceForCards: UIView! { didSet { updateViewFromModel() } }
+    @IBOutlet weak var tableSpaceForCards: UIView!
     
     var maxNumberOfCards: Int {
         return tableSpaceForCards.subviews.count
@@ -55,7 +59,7 @@ class ViewController: UIViewController {
     
     
     // Set up a connection to the model
-    lazy private var game = SetGame(numberOfCards: startNumberOfCards)
+    private var game = SetGame(numberOfCards: 12)
     
     // Sync up the view with the model
     private func updateViewFromModel() {
@@ -63,7 +67,8 @@ class ViewController: UIViewController {
             view.removeFromSuperview()
         }
         if !game.gameOver {
-            var grid = Grid(layout: .aspectRatio(tableSpaceForCards.bounds.width / tableSpaceForCards.bounds.height), frame: tableSpaceForCards.bounds)
+            var grid = Grid(layout: .aspectRatio(3.5 / 5), frame: tableSpaceForCards.bounds)
+            print(tableSpaceForCards.bounds)
             grid.cellCount = game.dealtCards.count
             for index in 0...grid.cellCount - 1 {
                 if let cell = grid[index] {
