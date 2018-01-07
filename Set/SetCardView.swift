@@ -52,6 +52,7 @@ class SetCardView: UIView {
         bgColor.setFill()
         roundedRect.fill()
         
+        //Draw card face
         var paths = [UIBezierPath]()
         let shapeSize = CGSize(width: bounds.width * 0.75, height: bounds.height * 0.2)
         let originOfTheOneAndOnlyShape = CGPoint(x: bounds.midX - shapeSize.width/2, y: bounds.midY - shapeSize.height/2)

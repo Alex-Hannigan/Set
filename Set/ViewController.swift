@@ -22,10 +22,6 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var tableSpaceForCards: UIView!
     
-    var maxNumberOfCards: Int {
-        return tableSpaceForCards.subviews.count
-    }
-    
     // The number of cards that are dealt at the start of a new game
     let startNumberOfCards = 12
     
